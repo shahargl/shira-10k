@@ -23,8 +23,14 @@ const copy = {
 };
 
 const typeLabels = { easy: 'קל', speed: 'מהירות נשלטת', long: 'ארוכה', race: 'מרוץ' };
-const weekNames = ['כניסה לשגרה', 'חיזוק עדין', 'בניית סיבולת', 'שבוע שיא', 'הורדת עומס', 'שבוע המרוץ'];
+const weekNames = ['התחלה אחרי יום כיפור', 'חיזוק עדין', 'בניית סיבולת', 'שבוע שיא', 'הורדת עומס', 'שבוע המרוץ'];
 const weekDates = ['20–26 בספטמבר', '27 בספטמבר–3 באוקטובר', '4–10 באוקטובר', '11–17 באוקטובר', '18–24 באוקטובר', '25–31 באוקטובר'];
+const holidays = {
+  '2026-09-20': 'ערב יום כיפור',
+  '2026-09-21': 'יום כיפור',
+  '2026-09-26': 'סוכות',
+  '2026-10-03': 'שמיני עצרת ושמחת תורה',
+};
 const calendar = document.querySelector('#training-calendar');
 const details = document.querySelector('#workout-details');
 const dayNames = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
@@ -68,12 +74,18 @@ function renderCalendarWeek(week, index) {
   const firstRun = workouts.find((workout) => workout.week === week.number);
   const start = new Date(`${firstRun.date}T12:00:00`);
   start.setDate(start.getDate() - start.getDay());
+  const weekHolidayNames = Array.from({ length: 7 }, (_, dayIndex) => {
+    const date = new Date(start);
+    date.setDate(date.getDate() + dayIndex);
+    return holidays[date.toLocaleDateString('en-CA')];
+  }).filter(Boolean);
   const cells = Array.from({ length: 7 }, (_, dayIndex) => {
     const date = new Date(start);
     date.setDate(date.getDate() + dayIndex);
     const iso = date.toLocaleDateString('en-CA');
     const workout = workouts.find((item) => item.date === iso);
-    if (!workout) return `<div class="calendar-day empty"><span class="day-number"><b>${dayNames[dayIndex]}</b>${date.getDate()}</span></div>`;
+    const holiday = holidays[iso];
+    if (!workout) return `<div class="calendar-day ${holiday ? 'holiday-day' : 'empty'}"><span class="day-number"><b>${dayNames[dayIndex]}</b>${date.getDate()}</span>${holiday ? `<span class="holiday">${holiday}<small>ללא אימון</small></span>` : ''}</div>`;
     const [title, goal] = copy[workout.id];
     const completed = Boolean(state.completed[workout.id]);
     return `<div class="calendar-day">
@@ -84,7 +96,7 @@ function renderCalendarWeek(week, index) {
       </a>
     </div>`;
   }).join('');
-  return `<div class="calendar-week"><div class="calendar-week-label"><strong>שבוע ${week.number}</strong><span>${weekNames[index]}</span></div>${cells}</div>`;
+  return `<div class="calendar-week"><div class="calendar-week-label"><strong>שבוע ${week.number}</strong><span>${weekNames[index]}</span>${weekHolidayNames.length ? `<em>${weekHolidayNames.join(' · ')}</em>` : ''}</div>${cells}</div>`;
 }
 
 function renderRun(workout) {

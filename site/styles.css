@@ -26,6 +26,7 @@ button { font: inherit; cursor: pointer; }
 .kicker { color: var(--green); font-weight: 800; margin: 0 0 8px; }
 h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -.04em; }
 .intro { color: var(--muted); margin: 10px 0 0; }
+.holiday-note { margin: 6px 0 0; color: #8b4b35; font-size: .86rem; }
 .page-header button {
   border: 1px solid var(--line);
   background: white;
@@ -45,8 +46,9 @@ main { max-width: 1000px; margin: auto; padding: 28px 24px 60px; }
 .calendar-header, .calendar-week { display: grid; grid-template-columns: 125px repeat(7, 1fr); gap: 7px; }
 .calendar-header span { color: var(--muted); font-size: .78rem; text-align: center; }
 .calendar-week-label { padding: 10px 8px; }
-.calendar-week-label strong, .calendar-week-label span { display: block; }
+.calendar-week-label strong, .calendar-week-label span, .calendar-week-label em { display: block; }
 .calendar-week-label span { color: var(--muted); font-size: .72rem; }
+.calendar-week-label em { color: #8b4b35; font-size: .64rem; font-style: normal; margin-top: 5px; }
 .calendar-day { min-height: 104px; padding: 7px; border: 1px solid var(--line); border-radius: 8px; background: #fbfbf8; position: relative; }
 .day-number { color: var(--muted); font-size: .72rem; display: flex; justify-content: space-between; }
 .day-number b { font-weight: 500; display: none; }
@@ -56,6 +58,9 @@ main { max-width: 1000px; margin: auto; padding: 28px 24px 60px; }
 .calendar-run.completed { opacity: .5; }
 .calendar-run strong, .calendar-run > span { display: block; }
 .calendar-run > span { font-size: .68rem; }
+.holiday-day { background: #f7ece8; border-color: #e8c9bd; }
+.holiday { display: block; margin-top: 7px; color: #8b4b35; font-size: .68rem; font-weight: 800; line-height: 1.35; }
+.holiday small { display: block; font-weight: 400; }
 .tooltip { display: none !important; position: absolute; z-index: 10; width: 230px; right: 0; top: calc(100% + 7px); padding: 11px; background: #20231f; color: white; border-radius: 7px; box-shadow: 0 8px 30px #0003; line-height: 1.45; font-weight: 400; }
 .tooltip small { display: block; color: #cbd1cb; margin-top: 7px; }
 .calendar-run:hover .tooltip, .calendar-run:focus .tooltip { display: block !important; }
@@ -111,7 +116,7 @@ footer { max-width: 1000px; margin: auto; padding: 24px; border-top: 1px solid v
   .calendar-week-label { padding: 7px 2px; }
   .calendar-week-label span { font-size: .66rem; }
   .calendar-day { min-height: 112px; padding: 5px; }
-  .calendar-day.empty { display: none; }
+  .calendar-day.empty, .calendar-day.holiday-day { display: none; }
   .day-number b { display: inline; }
   .calendar-run { padding: 6px; font-size: .68rem; }
   .calendar-run > span { font-size: .62rem; }

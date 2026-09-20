@@ -13,7 +13,7 @@ export const race = {
 };
 
 export const weeks = [
-  { number: 1, dates: 'Sep 20–26', label: 'Settle into three runs', plannedKm: 17 },
+  { number: 1, dates: 'Sep 20–26', label: 'Start after Yom Kippur', plannedKm: 12 },
   { number: 2, dates: 'Sep 27–Oct 3', label: 'Add gentle strength', plannedKm: 18 },
   { number: 3, dates: 'Oct 4–10', label: 'Build aerobic confidence', plannedKm: 19 },
   { number: 4, dates: 'Oct 11–17', label: 'Peak endurance', plannedKm: 19 },
@@ -28,18 +28,11 @@ const easy = {
 
 export const workouts = [
   {
-    id: 'w1-sun', week: 1, date: '2026-09-20', type: 'easy', title: 'Easy reset',
+    id: 'w1-sun', week: 1, date: '2026-09-22', type: 'easy', title: 'Easy reset',
     distanceKm: 5, duration: '33–36 min', ...easy,
     summary: 'A relaxed baseline run with a deliberate knee check.',
     details: ['Walk briskly for 5 minutes.', 'Run 5 km at full-sentence conversation effort.', 'Finish with 3–5 minutes of easy walking.'],
     kneeOption: 'If discomfort rises above 2/10, switch to 4 min run / 1 min walk or stop.',
-  },
-  {
-    id: 'w1-tue', week: 1, date: '2026-09-22', type: 'speed', title: 'Short smooth pickups',
-    distanceKm: 5, duration: '32–36 min', effort: 'RPE 6 on pickups', pace: 'Easy + controlled brisk form',
-    summary: 'Introduce speed without fatigue or hard impact.',
-    details: ['Run 2 km very easy.', 'Complete 6 × 30 sec brisk with 90 sec easy jog.', 'Jog easily to 5 km total.'],
-    kneeOption: 'Replace pickups with an easy 5 km if the knee felt irritated after Sunday.',
   },
   {
     id: 'w1-thu', week: 1, date: '2026-09-24', type: 'long', title: 'Comfortable seven',

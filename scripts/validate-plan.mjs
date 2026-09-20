@@ -7,16 +7,18 @@ const assert = (condition, message) => {
 
 assert(race.date === '2026-10-28', 'Race date must be October 28, 2026');
 assert(weeks.length === 6, 'Plan must contain six calendar weeks');
-assert(workouts.length === 17, 'Plan must contain 16 training runs plus race day');
+assert(workouts.length === 16, 'Plan must contain 15 training runs plus race day');
 assert(new Set(workouts.map((workout) => workout.id)).size === workouts.length, 'Workout IDs must be unique');
 assert(workouts.every((workout, index) => index === 0 || workout.date > workouts[index - 1].date), 'Workouts must be chronological');
 assert(workouts.at(-1).date === race.date && workouts.at(-1).distanceKm === 10, 'Final workout must be the 10K race');
 
-for (const week of weeks.slice(0, 5)) {
+const expectedRuns = [2, 3, 3, 3, 3, 2];
+for (const week of weeks) {
   const weekRuns = workouts.filter((workout) => workout.week === week.number);
-  assert(weekRuns.length === 3, `Week ${week.number} must have three runs`);
+  assert(weekRuns.length === expectedRuns[week.number - 1], `Week ${week.number} run count mismatch`);
   assert(weekRuns.reduce((sum, workout) => sum + workout.distanceKm, 0) === week.plannedKm, `Week ${week.number} distance mismatch`);
 }
+assert(!workouts.some((workout) => workout.date === '2026-09-20' || workout.date === '2026-09-21'), 'No running during Yom Kippur');
 
 const longRuns = workouts.filter((workout) => workout.type === 'long').map((workout) => workout.distanceKm);
 assert(Math.max(...longRuns) === 9, 'Peak long run must be 9 km');
@@ -31,5 +33,6 @@ assert(app.includes('המטרה:') && app.includes('למה:'), 'Every rendered w
 assert(!html.includes('Six weeks') && !html.includes('THE STARTING POINT'), 'Old promotional layout must be removed');
 assert(app.includes('href="#run-${workout.id}"'), 'Calendar workouts must link to full explanations');
 assert(app.includes('class="tooltip"'), 'Calendar workouts must provide hover descriptions');
+assert(app.includes('יום כיפור') && app.includes('שמיני עצרת ושמחת תורה'), 'Jewish holidays must be marked');
 
 console.log(`Validated ${workouts.length} workouts across ${weeks.length} weeks.`);
