@@ -48,7 +48,8 @@ main { max-width: 1000px; margin: auto; padding: 28px 24px 60px; }
 .calendar-week-label strong, .calendar-week-label span { display: block; }
 .calendar-week-label span { color: var(--muted); font-size: .72rem; }
 .calendar-day { min-height: 104px; padding: 7px; border: 1px solid var(--line); border-radius: 8px; background: #fbfbf8; position: relative; }
-.day-number { color: var(--muted); font-size: .72rem; }
+.day-number { color: var(--muted); font-size: .72rem; display: flex; justify-content: space-between; }
+.day-number b { font-weight: 500; display: none; }
 .calendar-run { display: block; position: relative; margin-top: 6px; padding: 7px; border-radius: 6px; background: #e8f0ec; color: var(--green); text-decoration: none; font-size: .72rem; }
 .calendar-run.speed { background: #fff1db; color: #835510; }
 .calendar-run.race { background: #fce5dc; color: #9d3f1f; }
@@ -100,13 +101,31 @@ footer { max-width: 1000px; margin: auto; padding: 24px; border-top: 1px solid v
 
 @media (max-width: 700px) {
   .page-header { display: block; padding-top: 30px; }
-  .page-header button { margin-top: 18px; }
+  .page-header button { margin-top: 18px; width: 100%; }
   main { padding: 22px 14px 45px; }
   .progress { grid-template-columns: 1fr; justify-content: stretch; }
+  .calendar-scroll { overflow: visible; }
+  .calendar { min-width: 0; gap: 10px; }
+  .calendar-header { display: none; }
+  .calendar-week { grid-template-columns: 76px repeat(3, minmax(0, 1fr)); gap: 5px; }
+  .calendar-week-label { padding: 7px 2px; }
+  .calendar-week-label span { font-size: .66rem; }
+  .calendar-day { min-height: 112px; padding: 5px; }
+  .calendar-day.empty { display: none; }
+  .day-number b { display: inline; }
+  .calendar-run { padding: 6px; font-size: .68rem; }
+  .calendar-run > span { font-size: .62rem; }
+  .tooltip { display: none !important; }
   .detail-week { grid-template-columns: 1fr; gap: 8px; }
   .week-title { display: flex; gap: 10px; align-items: baseline; padding-top: 0; }
   .run { grid-template-columns: 82px 1fr; padding: 14px; gap: 12px; }
   .run-date { padding-left: 10px; }
+}
+
+@media (max-width: 380px) {
+  .calendar-week { grid-template-columns: 62px repeat(3, minmax(0, 1fr)); }
+  .calendar-week-label strong { font-size: .82rem; }
+  .calendar-run { font-size: .63rem; }
 }
 
 @media print {

@@ -73,11 +73,11 @@ function renderCalendarWeek(week, index) {
     date.setDate(date.getDate() + dayIndex);
     const iso = date.toLocaleDateString('en-CA');
     const workout = workouts.find((item) => item.date === iso);
-    if (!workout) return `<div class="calendar-day"><span class="day-number">${date.getDate()}</span></div>`;
+    if (!workout) return `<div class="calendar-day empty"><span class="day-number"><b>${dayNames[dayIndex]}</b>${date.getDate()}</span></div>`;
     const [title, goal] = copy[workout.id];
     const completed = Boolean(state.completed[workout.id]);
     return `<div class="calendar-day">
-      <span class="day-number">${date.getDate()}</span>
+      <span class="day-number"><b>${dayNames[dayIndex]}</b>${date.getDate()}</span>
       <a class="calendar-run ${workout.type} ${completed ? 'completed' : ''}" href="#run-${workout.id}">
         <strong>${title}</strong><span>${workout.distanceKm} ק״מ</span>
         <span class="tooltip"><b>המטרה:</b> ${goal}<small>לחיצה להסבר המלא</small></span>
