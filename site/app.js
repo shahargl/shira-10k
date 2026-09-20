@@ -1,4 +1,4 @@
-import { weeks, workouts } from './plan.js';
+import { weeks, workouts } from './plan.js?v=2ad83b4';
 
 const STORAGE_KEY = 'shira-10k-progress-v1';
 const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"completed":{}}');
