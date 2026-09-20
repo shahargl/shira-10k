@@ -29,5 +29,7 @@ const app = readFileSync(new URL('../site/app.js', import.meta.url), 'utf8');
 assert(html.includes('lang="he" dir="rtl"'), 'Site must be Hebrew RTL');
 assert(app.includes('המטרה:') && app.includes('למה:'), 'Every rendered workout must explain its goal and rationale');
 assert(!html.includes('Six weeks') && !html.includes('THE STARTING POINT'), 'Old promotional layout must be removed');
+assert(app.includes('href="#run-${workout.id}"'), 'Calendar workouts must link to full explanations');
+assert(app.includes('class="tooltip"'), 'Calendar workouts must provide hover descriptions');
 
 console.log(`Validated ${workouts.length} workouts across ${weeks.length} weeks.`);

@@ -26,6 +26,8 @@ const typeLabels = { easy: 'קל', speed: 'מהירות נשלטת', long: 'אר
 const weekNames = ['כניסה לשגרה', 'חיזוק עדין', 'בניית סיבולת', 'שבוע שיא', 'הורדת עומס', 'שבוע המרוץ'];
 const weekDates = ['20–26 בספטמבר', '27 בספטמבר–3 באוקטובר', '4–10 באוקטובר', '11–17 באוקטובר', '18–24 באוקטובר', '25–31 באוקטובר'];
 const calendar = document.querySelector('#training-calendar');
+const details = document.querySelector('#workout-details');
+const dayNames = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
 
 function dateParts(value) {
   const date = new Date(`${value}T12:00:00`);
@@ -40,10 +42,14 @@ function save() {
 }
 
 function render() {
-  calendar.innerHTML = weeks.map((week, index) => {
+  calendar.innerHTML = `
+    <div class="calendar-header"><span>שבוע</span>${dayNames.map((day) => `<span>${day}</span>`).join('')}</div>
+    ${weeks.map((week, index) => renderCalendarWeek(week, index)).join('')}`;
+
+  details.innerHTML = weeks.map((week, index) => {
     const weekRuns = workouts.filter((workout) => workout.week === week.number);
-    return `<section class="week">
-      <header class="week-title"><h2>שבוע ${week.number} · ${weekNames[index]}</h2><p>${weekDates[index]} · ${week.plannedKm} ק״מ</p></header>
+    return `<section class="detail-week">
+      <header class="week-title"><h3>שבוע ${week.number} · ${weekNames[index]}</h3><p>${weekDates[index]} · ${week.plannedKm} ק״מ</p></header>
       <div class="runs">${weekRuns.map(renderRun).join('')}</div>
     </section>`;
   }).join('');
@@ -58,15 +64,38 @@ function render() {
   updateProgress();
 }
 
+function renderCalendarWeek(week, index) {
+  const firstRun = workouts.find((workout) => workout.week === week.number);
+  const start = new Date(`${firstRun.date}T12:00:00`);
+  start.setDate(start.getDate() - start.getDay());
+  const cells = Array.from({ length: 7 }, (_, dayIndex) => {
+    const date = new Date(start);
+    date.setDate(date.getDate() + dayIndex);
+    const iso = date.toLocaleDateString('en-CA');
+    const workout = workouts.find((item) => item.date === iso);
+    if (!workout) return `<div class="calendar-day"><span class="day-number">${date.getDate()}</span></div>`;
+    const [title, goal] = copy[workout.id];
+    const completed = Boolean(state.completed[workout.id]);
+    return `<div class="calendar-day">
+      <span class="day-number">${date.getDate()}</span>
+      <a class="calendar-run ${workout.type} ${completed ? 'completed' : ''}" href="#run-${workout.id}">
+        <strong>${title}</strong><span>${workout.distanceKm} ק״מ</span>
+        <span class="tooltip"><b>המטרה:</b> ${goal}<small>לחיצה להסבר המלא</small></span>
+      </a>
+    </div>`;
+  }).join('');
+  return `<div class="calendar-week"><div class="calendar-week-label"><strong>שבוע ${week.number}</strong><span>${weekNames[index]}</span></div>${cells}</div>`;
+}
+
 function renderRun(workout) {
   const [title, goal, why, steps, knee] = copy[workout.id];
   const date = dateParts(workout.date);
   const completed = Boolean(state.completed[workout.id]);
   const duration = workout.duration === 'Run by effort' ? 'לפי תחושה' : workout.duration.replace('min', 'דקות');
-  return `<article class="run ${workout.type === 'race' ? 'race' : ''} ${completed ? 'completed' : ''}">
+  return `<article id="run-${workout.id}" class="run ${workout.type === 'race' ? 'race' : ''} ${completed ? 'completed' : ''}">
     <div class="run-date"><strong>${date.day}</strong><span>${date.date}</span><span>${typeLabels[workout.type]}</span></div>
     <div class="run-main">
-      <h3>${title}</h3>
+      <h4>${title}</h4>
       <p class="meta">${workout.distanceKm} ק״מ · ${duration}</p>
       <p class="purpose"><strong>המטרה:</strong> ${goal}</p>
       <p class="why"><strong>למה:</strong> ${why}</p>

@@ -38,11 +38,32 @@ main { max-width: 1000px; margin: auto; padding: 28px 24px 60px; }
 .progress { display: grid; grid-template-columns: auto 180px; justify-content: end; align-items: center; gap: 14px; color: var(--muted); font-size: .9rem; margin-bottom: 26px; }
 .progress i { height: 7px; background: #e2e4df; border-radius: 20px; overflow: hidden; }
 .progress b { display: block; width: 0; height: 100%; background: var(--green); transition: width .2s; }
-.calendar { display: grid; gap: 28px; }
+.section-title { margin: 0; font-size: 1.35rem; }
+.section-note { color: var(--muted); margin: 3px 0 16px; font-size: .88rem; }
+.calendar-scroll { overflow-x: auto; padding: 0 0 18px; }
+.calendar { min-width: 900px; display: grid; gap: 7px; direction: rtl; }
+.calendar-header, .calendar-week { display: grid; grid-template-columns: 125px repeat(7, 1fr); gap: 7px; }
+.calendar-header span { color: var(--muted); font-size: .78rem; text-align: center; }
+.calendar-week-label { padding: 10px 8px; }
+.calendar-week-label strong, .calendar-week-label span { display: block; }
+.calendar-week-label span { color: var(--muted); font-size: .72rem; }
+.calendar-day { min-height: 104px; padding: 7px; border: 1px solid var(--line); border-radius: 8px; background: #fbfbf8; position: relative; }
+.day-number { color: var(--muted); font-size: .72rem; }
+.calendar-run { display: block; position: relative; margin-top: 6px; padding: 7px; border-radius: 6px; background: #e8f0ec; color: var(--green); text-decoration: none; font-size: .72rem; }
+.calendar-run.speed { background: #fff1db; color: #835510; }
+.calendar-run.race { background: #fce5dc; color: #9d3f1f; }
+.calendar-run.completed { opacity: .5; }
+.calendar-run strong, .calendar-run > span { display: block; }
+.calendar-run > span { font-size: .68rem; }
+.tooltip { display: none !important; position: absolute; z-index: 10; width: 230px; right: 0; top: calc(100% + 7px); padding: 11px; background: #20231f; color: white; border-radius: 7px; box-shadow: 0 8px 30px #0003; line-height: 1.45; font-weight: 400; }
+.tooltip small { display: block; color: #cbd1cb; margin-top: 7px; }
+.calendar-run:hover .tooltip, .calendar-run:focus .tooltip { display: block !important; }
 
-.week { display: grid; grid-template-columns: 155px 1fr; gap: 18px; }
+.details-section { margin-top: 55px; }
+.workout-details { display: grid; gap: 30px; margin-top: 18px; }
+.detail-week { display: grid; grid-template-columns: 155px 1fr; gap: 18px; scroll-margin-top: 20px; }
 .week-title { padding-top: 14px; }
-.week-title h2 { font-size: 1.05rem; margin: 0; }
+.week-title h3 { font-size: 1.05rem; margin: 0; }
 .week-title p { color: var(--muted); font-size: .85rem; margin: 4px 0; }
 .runs { display: grid; gap: 10px; }
 
@@ -56,12 +77,12 @@ main { max-width: 1000px; margin: auto; padding: 28px 24px 60px; }
   gap: 18px;
 }
 .run.completed { opacity: .58; }
-.run.completed h3 { text-decoration: line-through; }
+.run.completed h4 { text-decoration: line-through; }
 .run-date { border-left: 1px solid var(--line); }
 .run-date strong, .run-date span { display: block; }
 .run-date strong { font-size: 1.05rem; }
 .run-date span { color: var(--muted); font-size: .82rem; }
-.run-main h3 { margin: 0; font-size: 1.12rem; }
+.run-main h4 { margin: 0; font-size: 1.12rem; }
 .meta { color: var(--green); font-weight: 800; font-size: .88rem; margin: 3px 0 10px; }
 .purpose { margin: 0 0 10px; }
 .purpose strong { color: var(--orange); }
@@ -73,7 +94,7 @@ main { max-width: 1000px; margin: auto; padding: 28px 24px 60px; }
 .complete { display: flex; align-items: center; gap: 7px; margin-top: 13px; font-size: .86rem; font-weight: 700; }
 .complete input { width: 18px; height: 18px; accent-color: var(--green); }
 .race { border-color: var(--orange); border-width: 2px; }
-.race .run-date strong, .race h3 { color: var(--orange); }
+.race .run-date strong, .race h4 { color: var(--orange); }
 
 footer { max-width: 1000px; margin: auto; padding: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
 
@@ -82,7 +103,7 @@ footer { max-width: 1000px; margin: auto; padding: 24px; border-top: 1px solid v
   .page-header button { margin-top: 18px; }
   main { padding: 22px 14px 45px; }
   .progress { grid-template-columns: 1fr; justify-content: stretch; }
-  .week { grid-template-columns: 1fr; gap: 8px; }
+  .detail-week { grid-template-columns: 1fr; gap: 8px; }
   .week-title { display: flex; gap: 10px; align-items: baseline; padding-top: 0; }
   .run { grid-template-columns: 82px 1fr; padding: 14px; gap: 12px; }
   .run-date { padding-left: 10px; }
