@@ -1,4 +1,5 @@
 import { race, weeks, workouts } from '../site/plan.js';
+import { readFileSync } from 'node:fs';
 
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
@@ -22,5 +23,11 @@ assert(Math.max(...longRuns) === 9, 'Peak long run must be 9 km');
 assert(weeks[4].plannedKm < weeks[3].plannedKm, 'Taper must start after peak week');
 assert(workouts.every((workout) => workout.kneeOption), 'Every workout needs a knee-aware option');
 assert(workouts.filter((workout) => workout.type === 'speed').every((workout) => !/all.out/i.test(workout.summary)), 'Speed work must remain controlled');
+
+const html = readFileSync(new URL('../site/index.html', import.meta.url), 'utf8');
+const app = readFileSync(new URL('../site/app.js', import.meta.url), 'utf8');
+assert(html.includes('lang="he" dir="rtl"'), 'Site must be Hebrew RTL');
+assert(app.includes('המטרה:') && app.includes('למה:'), 'Every rendered workout must explain its goal and rationale');
+assert(!html.includes('Six weeks') && !html.includes('THE STARTING POINT'), 'Old promotional layout must be removed');
 
 console.log(`Validated ${workouts.length} workouts across ${weeks.length} weeks.`);

@@ -1,72 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#17241d">
-  <meta name="description" content="Shira's conservative six-week training plan for a comfortable 10K finish.">
-  <title>Shira's 10K Roadmap</title>
+  <meta name="theme-color" content="#f7f7f3">
+  <meta name="description" content="תוכנית האימונים של שירה ל־10 ק״מ">
+  <title>התוכנית של שירה ל־10 ק״מ</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <header class="hero" id="top">
-    <nav class="topbar">
-      <a class="wordmark" href="#top"><span>S</span> Road to 10K</a>
-      <div><button class="quiet" id="print-button">Print</button><button class="light" id="calendar-button">Add to calendar</button></div>
-    </nav>
-    <div class="hero-content">
-      <div>
-        <p class="eyebrow">SEPTEMBER 20 — OCTOBER 28, 2026</p>
-        <h1>Six weeks.<br><em>One calm finish.</em></h1>
-        <p class="lede">A conservative three-run week built around the fitness Shira already has: a little speed, a little more endurance, and plenty of room to arrive healthy.</p>
-        <a class="cta" href="#calendar">View the plan</a>
-      </div>
-      <aside class="race-card">
-        <p class="label">RACE DAY</p><p class="date">28 <span>OCT</span></p>
-        <hr><p class="count" id="countdown-number">38</p><p id="countdown-label">days to go</p>
-        <strong>Goal: finish comfortably</strong>
-      </aside>
+  <header class="page-header">
+    <div>
+      <p class="kicker">28.10.2026 · מרוץ 10 ק״מ</p>
+      <h1>תוכנית האימונים של שירה</h1>
+      <p class="intro">שלוש ריצות בשבוע · ראשון, שלישי וחמישי · המטרה: לסיים בנוחות ובריאות</p>
     </div>
-    <div class="stripe"><span>Easy</span><span>Steady</span><span>Strong</span><span>Ready</span></div>
+    <button id="calendar-button" type="button">הוספה ליומן</button>
   </header>
 
   <main>
-    <section class="section">
-      <header class="heading"><p class="eyebrow dark">THE STARTING POINT</p><h2>Built from what is already working.</h2><p>This plan uses aggregate patterns from Shira’s recent runs—not a generic beginner template. Raw routes and private activity data are never published here.</p></header>
-      <div class="stats" id="stat-grid"></div>
-    </section>
-
-    <section class="section calendar-section" id="calendar">
-      <div class="calendar-head">
-        <header class="heading"><p class="eyebrow dark">THE CALENDAR</p><h2>Sunday. Tuesday. Thursday.</h2><p>Tap any workout for the complete session and a knee-friendly alternative.</p></header>
-        <div class="progress"><div><span>Plan progress</span><strong id="progress-label">0 of 17 complete</strong></div><i><b id="progress-bar"></b></i></div>
-      </div>
-      <div class="calendar" id="training-calendar"></div>
-    </section>
-
-    <section class="section rules">
-      <header class="heading"><p class="eyebrow warm">THE RULES THAT MATTER</p><h2>Train the runner.<br>Protect the knee.</h2></header>
-      <div class="rule-grid">
-        <article><span>01</span><h3>Easy means easy</h3><p>Most kilometres should allow full-sentence conversation. Slowing down is part of the program.</p></article>
-        <article><span>02</span><h3>Speed stays controlled</h3><p>Quicker segments should always feel repeatable, never like an all-out test.</p></article>
-        <article><span>03</span><h3>Pain changes the plan</h3><p>Stop for sharp pain, swelling, limping, or discomfort that increases during a run.</p></article>
-      </div>
-      <div class="pain"><strong>The 24-hour rule</strong><span>If discomfort is worse later that day or the next morning, reduce the next run by 20–30% and remove fast segments.</span></div>
-    </section>
-
-    <section class="section">
-      <header class="heading"><p class="eyebrow dark">THE PROGRESSION</p><h2>Build. Peak. Freshen up.</h2><p>Distance rises gradually, peaks once, then steps down before race day.</p></header>
-      <div class="volume" id="volume-chart"></div>
-    </section>
-
-    <section class="section race-guide">
-      <div><p class="eyebrow warm">OCTOBER 28</p><h2>The race is a long, patient run.</h2><p>There is no required finish time. Reach 8 km with enough control to make a healthy choice about the final two.</p></div>
-      <ol><li><span>1–3 km</span><strong>Hold back</strong><small>Calm breathing, relaxed shoulders.</small></li><li><span>4–8 km</span><strong>Find rhythm</strong><small>Sustainable, focused, never straining.</small></li><li><span>9–10 km</span><strong>Choose</strong><small>Lift only if the knee feels normal.</small></li></ol>
-    </section>
+    <div class="progress" aria-live="polite">
+      <span id="progress-label">0 מתוך 17 אימונים הושלמו</span>
+      <i><b id="progress-bar"></b></i>
+    </div>
+    <div id="training-calendar" class="calendar"></div>
   </main>
 
-  <footer><strong>Made for Shira’s first confident 10K.</strong><small>Training guidance is educational and does not replace medical assessment.</small></footer>
-  <dialog id="workout-dialog"><button class="close" id="dialog-close" aria-label="Close">×</button><div id="dialog-content"></div></dialog>
+  <footer>
+    כאב חד, נפיחות או שינוי בצורת הריצה = עוצרים. התוכנית אינה תחליף לייעוץ רפואי.
+  </footer>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
